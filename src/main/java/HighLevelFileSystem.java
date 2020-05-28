@@ -1,7 +1,6 @@
 import java.util.function.Consumer;
 
 public interface HighLevelFileSystem {
-
     public OpenFile openFile(String path);
 
     public void closeFile(int fileDescriptor);

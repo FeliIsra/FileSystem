@@ -14,7 +14,7 @@ public class TestDriver {
     @Before
     public void setup() {
         lowLevelFileSystem = mock(LowLevelFileSystem.class);
-        highLevelFileSystem = new HighLevelAdapter(lowLevelFileSystem);
+        highLevelFileSystem = HighLevelAdapter.getInstance();
     }
 
     @Test

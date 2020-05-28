@@ -2,10 +2,19 @@ import java.util.function.Consumer;
 
 public class HighLevelAdapter implements HighLevelFileSystem {
 
-    private LowLevelFileSystem lowLevelFileSystem;
+    private  static LowLevelFileSystem lowLevelFileSystem;
+    private static HighLevelAdapter singleton = null;
 
-    public HighLevelAdapter(LowLevelFileSystem lowLevelFileSystem){
+    private HighLevelAdapter(LowLevelFileSystem lowLevelFileSystem){
         this.lowLevelFileSystem = lowLevelFileSystem;
+    }
+
+    public static HighLevelAdapter getInstance(){
+        if(singleton == null){
+            singleton = new HighLevelAdapter(lowLevelFileSystem);
+        }
+
+        return singleton;
     }
 
     public OpenFile openFile(String path){
