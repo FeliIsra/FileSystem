@@ -8,7 +8,7 @@ import static org.mockito.Mockito.*;
 public class TestDriver {
 
     private LowLevelFileSystem lowLevelFileSystem;
-    private HighLevelAdapter highLevelFileSystem;
+    private HighLevelFileSystem highLevelFileSystem;
     private OpenFile file;
 
     @Before

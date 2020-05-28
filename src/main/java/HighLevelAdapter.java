@@ -1,6 +1,6 @@
 import java.util.function.Consumer;
 
-public class HighLevelAdapter {
+public class HighLevelAdapter implements HighLevelFileSystem {
 
     private LowLevelFileSystem lowLevelFileSystem;
 
