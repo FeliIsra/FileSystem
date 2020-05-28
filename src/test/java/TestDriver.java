@@ -17,8 +17,6 @@ public class TestDriver {
         highLevelFileSystem = new HighLevelAdapter(lowLevelFileSystem);
     }
 
-
-    // TODO tests para abrir un archivo
     @Test
     public void sePuedeAbrirUnArchivo() {
         highLevelFileSystem.openFile("unaRuta");
@@ -38,20 +36,6 @@ public class TestDriver {
         file = highLevelFileSystem.openFile("unaRuta");
         highLevelFileSystem.closeFile(file.getFileDescriptor());
         verify(lowLevelFileSystem).closeFile(anyInt());
-    }
-
-
-    @Ignore
-    public void sePuedeLeerUnArchivoSincronicamente() {
-        when(lowLevelFileSystem.openFile("unaRuta")).thenReturn(100);
-
-        file = highLevelFileSystem.openFile("unaRuta");
-        Buffer buffer = new Buffer(10);
-        highLevelFileSystem.readAsync((Consumer<Buffer>) buffer, file);
-        verify(lowLevelFileSystem)
-                .syncReadFile(eq(file.getFileDescriptor()),
-                        same(buffer.getBytes()), eq(buffer.getStart()),
-                        eq(buffer.getEnd()));
     }
 
     @Test
