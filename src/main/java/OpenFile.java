@@ -1,11 +1,9 @@
 public class OpenFile {
 
     private int fileDescriptor;
-    private LowLevelFileSystem lowLevelFileSystem;
 
-    public OpenFile(int fileDescriptor, LowLevelFileSystem lowLevelFileSystem){
+    public OpenFile(int fileDescriptor){
         this.fileDescriptor = fileDescriptor;
-        this.lowLevelFileSystem = lowLevelFileSystem;
     }
 
     public int getFileDescriptor() {

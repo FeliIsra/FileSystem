@@ -9,7 +9,7 @@ public class TestDriver {
 
     private LowLevelFileSystem lowLevelFileSystem;
     private HighLevelAdapter highLevelFileSystem;
-    private OpenFile aFile;
+    private OpenFile file;
 
     @Before
     public void setup() {
@@ -17,9 +17,6 @@ public class TestDriver {
         highLevelFileSystem = new HighLevelAdapter(lowLevelFileSystem);
     }
 
-    @After
-    public void tearDown() {
-    }
 
     // TODO tests para abrir un archivo
     @Test
@@ -38,8 +35,8 @@ public class TestDriver {
     @Test
     public void sePuedeCerrarUnArchivo() {
         when(lowLevelFileSystem.openFile("unaRuta")).thenReturn(100);
-        aFile = highLevelFileSystem.openFile("unaRuta");
-        highLevelFileSystem.closeFile(aFile.getFileDescriptor());
+        file = highLevelFileSystem.openFile("unaRuta");
+        highLevelFileSystem.closeFile(file.getFileDescriptor());
         verify(lowLevelFileSystem).closeFile(anyInt());
     }
 
@@ -48,11 +45,11 @@ public class TestDriver {
     public void sePuedeLeerUnArchivoSincronicamente() {
         when(lowLevelFileSystem.openFile("unaRuta")).thenReturn(100);
 
-        aFile = highLevelFileSystem.openFile("unaRuta");
+        file = highLevelFileSystem.openFile("unaRuta");
         Buffer buffer = new Buffer(10);
-        highLevelFileSystem.readAsync((Consumer<Buffer>) buffer, aFile);
+        highLevelFileSystem.readAsync((Consumer<Buffer>) buffer, file);
         verify(lowLevelFileSystem)
-                .syncReadFile(eq(aFile.getFileDescriptor()),
+                .syncReadFile(eq(file.getFileDescriptor()),
                         same(buffer.getBytes()), eq(buffer.getStart()),
                         eq(buffer.getEnd()));
     }
@@ -67,10 +64,8 @@ public class TestDriver {
     @Test
     public void sePuedeLeerAsincronicamente() {
         when(lowLevelFileSystem.openFile("unaRuta")).thenReturn(100);
-        aFile = highLevelFileSystem.openFile("unaRuta");
-        highLevelFileSystem.readAsync((buffer) -> {
-
-        }, aFile);
+        file = highLevelFileSystem.openFile("unaRuta");
+        highLevelFileSystem.readAsync((buffer) -> {}, file);
         verify(lowLevelFileSystem).
                 asyncReadFile(anyInt(),
                         any(byte[].class),

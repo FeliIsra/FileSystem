@@ -10,7 +10,7 @@ public class HighLevelAdapter {
 
     public OpenFile openFile(String path){
         int fileDescriptor = this.lowLevelFileSystem.openFile(path);
-        return new OpenFile(fileDescriptor, lowLevelFileSystem);
+        return new OpenFile(fileDescriptor);
     }
 
     public void closeFile(int fileDescriptor){
